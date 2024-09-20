@@ -1,94 +1,62 @@
-# Task 1: Message Storage and Retrieval:
-class MessageNode {
-    constructor(messageID, timestamp, content) {
-        this.messageID = messageID;
-        this.timestamp = timestamp;
-        this.content = content;
-        this.left = null;
-        this.right = null;
+// Task 1: Message Storage and Retrieval:
+class message {
+    constructor(id, text, timestamp) {
+        this.id = id;
+        this.text = text;
+        this.timestamp = timestamp
+    }
+}
+
+// MessageStore class for efficient message storage and retrieval
+class MessageStore {
+    constructor() {
+        this.message = {}; // Hash table for quick lookup
+        this.messageList = []; // Sorted array by timestamp for message ordering
+    }
+
+    // Insert a new message and keep the list sorted by timestamp
+    addMessage(message) {
+        this.message[message.id] = message;
+        this.messageList.push(message);
+        this.messageList.sort((a,b) => a.timestamp - b.timestamp); // Sort by timestamp
+    }
+
+    // Retrieve message by ID
+    getMessageById(id) {
+        return this.messages[id];
+    }
+
+    // Retrieve all messages sorted by timestamp
+    getAllMessages() {
+        return this.messageList;
+    }
+
+    // Delete a message by ID
+    deleteMessage() {
+        return this.messageList;
+    }
+
+    // Delete a message by ID
+    deleteMessage(id) {
+        delete this.messages[id];
+        this.messageList = this.messageList.filter(message => message.id !== id);
 
     }
 }
 
-class MessageBST {
-    constructor() {
-        this.root = null;
-    }
-
-    // Insert a message into the tree
-    insert(messageID, timestamp, content) {
-        const newNode = new MessageNode(messageID, timestamp, content);
-        if (this.root === null) {
-            this.root = newNode;
-        } else {
-            this.insertNode(this.root, newNode);
-        }
-    }
-
-    _insertNode(node, newNode) {
-        if (newNode.tiemstamp < node.tiemstamp) {
-            if (node.left === null) {
-                node.left = newNode;
-
-            } else {
-                if (node.right === null) {
-                    node.right = newNode;
-                } else {
-                    this._insertNode(node.right, newNode);
-                }
-                }
-            }
-            // Search for a message by ID
-            search ByID(messageID) {
-                return this._searchNodeByID(this.root, messageID);
-            }
-
-            _searchNodeByID(node, messageID) {
-                if (node === null) {
-                    return null;
-                }
-                if (messageID === node.messageID) {
-                    return node;
-
-                } else if (messageID < node.messageID) {
-                    return this._searchNodeByID(node.left, messageID);
-
-                } else {
-                    return this._searchNodeByID(node.right, messageID);
-
-                }
-            }
-
-            // Retrieve message in order (by timestamp)
-            inOrderTraversal() {
-                const messages = [];
-                this._inorder(this.root, message);
-                retrun message;
-            }
-
-            _inOrder(node, message) {
-                if (node !== null) {
-                    this._inOrder(node.left, messages);
-                    message.push(node);
-                    this._inOrder(node.right, messages);
-                
-                }
-            
-            }
-        }
-
-        // Example Usage
-        const messageTree = new MessageBST();
-        messageTree.insert(1, 1630255387, "Hello World");
-        messageTree.insert(2, 1630255390, "How are you");
-        messageTree.insert(3, 1630255400, "Goodbye");
-
-        console.log(messageTree.inOrderTraversal()); // Sorted message by timestamp
-        console.log(messageTree.searchByID(2)); // Serach for a specific message by ID
-        
+// Useage example 
+const store = new MessageStore();
+store.addMessage(new Message(1, 'Hello World', 1432000000000));
+store.addMessage(new Message(2, 'How are you doing', 1432030000000));
+console.log(store.getAllMessages());
+console.log(store.getMessageById(1));
 
 
 
 
 
+
+
+
+      
 
