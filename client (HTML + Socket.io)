@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Real-Time Messaging</title>
+     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Real-Time Messaging</h1>
+    <input id="messageInput" type="text" placeholder="Type a message">
+    <button onClick="sendMessage()">Send</button>
+    <div id="message"></div>
+
+    <script>
+        const socket = io('http://localhost:4000');
+
+        // Send message to server
+        function sendMesssage() {
+            const message = document.getElementById('messageInput').value;
+            socket.emit('sendMessage',message);
+
+        }
+
+        // Listen for new message from server 
+        socket.on('recieveMessage', (message) => {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML += `<P>${message}</p>`;
+
+        });
+
+    </script>
+</body>
+</html>
+
