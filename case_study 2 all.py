@@ -71,7 +71,7 @@ def merge_sort(arr):
     return arr
 
 # Quick Sort (O(n log n) on average):
-def quick(arr):
+def quick_sort(arr):
     if len(arr) <= 1:
         return arr
     else: 
